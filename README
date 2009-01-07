@@ -1,1 +1,23 @@
 This simple project produces a CruiseControl publisher which will send basic build result update to a designated twitter account.
+
+This plugin can be added to a CruiseControl configuration by doing the following:
+
+1) execute 'mvn assembly:assembly' on the checked out source code
+2) located the produced jar in the target directory that has dependencies included
+3) copy the jar to your CruiseContro lib folder
+4) modify your config.xml to have the following:
+
+  <cruisecontrol>
+    <plugin name="tweetpublisher" classname="com.yardspoon.tweetpublisher.TweetPublisher"/>
+    ...
+    <project name="connectfour">
+      ...
+      <publishers>
+        <tweetpublisher username="twitter_username" password="twitter_password" />
+      </publishers>
+    </project>
+  </cruisecontrol>
+
+5) restart CruiseControl and wait for a project to be rebuilt.
+
+Currently, the publisher will only report the status of a finished build (e.g. "projectName BUILD FAILED!").
